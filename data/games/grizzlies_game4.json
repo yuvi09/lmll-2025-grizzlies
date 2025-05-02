@@ -1,0 +1,95 @@
+{
+  "game": "Game 4",
+  "field_positions": [
+    {
+      "inning": "1st Inning",
+      "positions": {
+        "P": "Sebie",
+        "C": "Rafa",
+        "1B": "Drew P",
+        "2B": "Levi",
+        "SS": "Charlie",
+        "3B": "Lucas",
+        "LF": "Zach",
+        "LC": "Peter",
+        "RC": "Luca A",
+        "RF": "Andrew"
+      },
+      "bench": {
+        "B1": "Drew N",
+        "B2": "Luca C"
+      }
+    },
+    {
+      "inning": "2nd Inning",
+      "positions": {
+        "P": "Rafa",
+        "C": "Sebie",
+        "1B": "Drew P",
+        "2B": "Luca A",
+        "SS": "Zach",
+        "3B": "Andrew",
+        "LF": "Luca A",
+        "LC": "Levi",
+        "RC": "Lucas",
+        "RF": "Charlie"
+      },
+      "bench": {
+        "B1": "Peter",
+        "B2": "Lucas"
+      }
+    },
+    {
+      "inning": "3rd Inning",
+      "positions": {
+        "P": "Levi",
+        "C": "Rafa",
+        "1B": "Drew P",
+        "2B": "Andrew",
+        "SS": "Zach",
+        "3B": "Charlie",
+        "LF": "Lucas",
+        "LC": "Sebie",
+        "RC": "Andrew",
+        "RF": "Peter"
+      },
+      "bench": {
+        "B1": "Luca A",
+        "B2": "Zach"
+      }
+    },
+    {
+      "inning": "4th Inning",
+      "positions": {
+        "P": "Andrew",
+        "C": "Drew P",
+        "1B": "Peter",
+        "2B": "Levi",
+        "SS": "Lucas",
+        "3B": "Luca A",
+        "LF": "Sebie",
+        "LC": "Peter",
+        "RC": "Charlie",
+        "RF": "Zach"
+      },
+      "bench": {
+        "B1": "Rafa",
+        "B2": "Drew N"
+      }
+    }
+  ],
+  "batting_order": [
+    "Drew N",
+    "Sebie",
+    "Levi",
+    "Drew P",
+    "Luca A",
+    "Rafa",
+    "Andrew",
+    "Zach",
+    "Charlie",
+    "Luca C",
+    "Lucas",
+    "Peter"
+  ]
+}
