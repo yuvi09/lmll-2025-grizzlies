@@ -131,10 +131,10 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-gray-100 p-8">
+      <main className="min-h-screen bg-gray-100 p-2 sm:p-4 md:p-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <h1 className="text-4xl font-extrabold text-gray-900 mb-8">Loading...</h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 sm:mb-8">Loading...</h1>
           </div>
         </div>
       </main>
@@ -143,11 +143,11 @@ export default function Home() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-gray-100 p-8">
+      <main className="min-h-screen bg-gray-100 p-2 sm:p-4 md:p-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <h1 className="text-4xl font-extrabold text-gray-900 mb-8">Error</h1>
-            <p className="text-lg text-red-600">{error}</p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 sm:mb-8">Error</h1>
+            <p className="text-base sm:text-lg text-red-600">{error}</p>
           </div>
         </div>
       </main>
@@ -155,38 +155,40 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-100 p-8">
+    <main className="min-h-screen bg-gray-100 p-2 sm:p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-8">Pizza Gourmet Grizzlies - Player Stats</h1>
-        <div className="bg-white p-6 rounded-lg shadow mb-8">
-          <h2 className="text-2xl font-extrabold text-gray-900 mb-4">Player Statistics</h2>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-6 sm:mb-8">Pizza Gourmet Grizzlies - Player Stats</h1>
+        <div className="bg-white p-2 sm:p-4 md:p-6 rounded-lg shadow mb-6 sm:mb-8">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-gray-900 mb-3 sm:mb-4">Player Statistics</h2>
           <PlayerStatsTable stats={playerStats} />
         </div>
         {battingOrderStats.length > 0 && (
-          <div className="bg-white p-6 rounded-lg shadow">
-            <h2 className="text-2xl font-extrabold text-gray-900 mb-4">Batting Order (Per Game & Aggregate)</h2>
-            <table className="min-w-[300px] w-auto border border-gray-300 text-center">
-              <thead>
-                <tr className="bg-gray-100 text-gray-900">
-                  <th className="px-4 py-2 border text-gray-900">Player</th>
-                  {games.map((game, idx) => (
-                    <th key={idx} className="px-4 py-2 border text-gray-900">{game.game || `Game ${idx + 1}`}</th>
-                  ))}
-                  <th className="px-4 py-2 border text-gray-900">Aggregate</th>
-                </tr>
-              </thead>
-              <tbody>
-                {battingOrderStats.map(({ player, perGameOrders, mostCommonOrder }) => (
-                  <tr key={player}>
-                    <td className="px-4 py-2 border text-left font-semibold text-gray-900">{player}</td>
-                    {perGameOrders.map((order, idx) => (
-                      <td key={idx} className="px-4 py-2 border text-gray-900">{order ? order : <span className="text-gray-400">—</span>}</td>
+          <div className="bg-white p-2 sm:p-4 md:p-6 rounded-lg shadow">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-gray-900 mb-3 sm:mb-4">Batting Order (Per Game & Aggregate)</h2>
+            <div className="overflow-x-auto">
+              <table className="min-w-[300px] w-auto border border-gray-300 text-center text-xs sm:text-sm md:text-base">
+                <thead>
+                  <tr className="bg-gray-100 text-gray-900">
+                    <th className="px-2 sm:px-4 py-2 border text-gray-900">Player</th>
+                    {games.map((game, idx) => (
+                      <th key={idx} className="px-2 sm:px-4 py-2 border text-gray-900">{game.game || `Game ${idx + 1}`}</th>
                     ))}
-                    <td className={`px-4 py-2 border font-bold text-gray-900 ${getOrderColor(mostCommonOrder, maxOrder)}`}>{mostCommonOrder}</td>
+                    <th className="px-2 sm:px-4 py-2 border text-gray-900">Aggregate</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {battingOrderStats.map(({ player, perGameOrders, mostCommonOrder }) => (
+                    <tr key={player}>
+                      <td className="px-2 sm:px-4 py-2 border text-left font-semibold text-gray-900 whitespace-nowrap">{player}</td>
+                      {perGameOrders.map((order, idx) => (
+                        <td key={idx} className="px-2 sm:px-4 py-2 border text-gray-900 whitespace-nowrap">{order ? order : <span className="text-gray-400">—</span>}</td>
+                      ))}
+                      <td className={`px-2 sm:px-4 py-2 border font-bold text-gray-900 whitespace-nowrap ${getOrderColor(mostCommonOrder, maxOrder)}`}>{mostCommonOrder}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             <div className="text-xs text-gray-500 mt-2">(Each column shows batting order for that game. Aggregate = most common order. Color: green = early, yellow = middle, red = late.)</div>
           </div>
         )}
