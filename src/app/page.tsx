@@ -157,9 +157,9 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-100 p-2 sm:p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-6 sm:mb-8">Pizza Gourmet Grizzlies - Player Stats</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-6 sm:mb-8">Pizza Gourmet Grizzlies</h1>
         <div className="bg-white p-2 sm:p-4 md:p-6 rounded-lg shadow mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-gray-900 mb-3 sm:mb-4">Player Statistics</h2>
+          <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-gray-900 mb-3 sm:mb-4">Player Field Positions</h2>
           <PlayerStatsTable stats={playerStats} />
         </div>
         {battingOrderStats.length > 0 && (
