@@ -3,13 +3,6 @@ import { PlayerStats } from '@/types/game';
 
 const POSITIONS = ['P', 'C', '1B', '2B', 'SS', '3B', 'LF', 'LC', 'RC', 'RF'];
 
-function getCellColor(count: number, max: number) {
-  if (max === 0) return '';
-  // Simple color scale: 0 = white, max = dark green
-  const intensity = Math.round((count / max) * 180);
-  return `background-color: rgb(${220 - intensity}, ${255 - intensity}, ${220 - intensity});`;
-}
-
 const PlayerStatsTable: React.FC<{ stats: PlayerStats[] }> = ({ stats }) => {
   if (!stats || stats.length === 0) {
     return (
@@ -85,7 +78,7 @@ const PlayerStatsTable: React.FC<{ stats: PlayerStats[] }> = ({ stats }) => {
           ))}
         </tbody>
       </table>
-      <div className="text-xs text-gray-500 mt-2">(Color code: more innings at a position = darker background shade. "Bench" = sum of B1 and B2.)</div>
+      <div className="text-xs text-gray-500 mt-2">(Color code: more innings at a position = darker background shade. &quot;Bench&quot; = sum of B1 and B2.)</div>
     </div>
   );
 };
