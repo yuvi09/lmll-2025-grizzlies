@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PlayerStatsTable from '@/components/PlayerStatsTable';
+import DiamondFrequencyPlot from '@/components/DiamondFrequencyPlot';
 import { Game, PlayerStats } from '@/types/game';
 import { calculatePlayerStats } from '@/lib/stats';
 
@@ -22,6 +23,9 @@ export default function Home() {
   const [playerStats, setPlayerStats] = useState<PlayerStats[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedPlayer, setSelectedPlayer] = useState<string>('ALL');
+
+  const frequencyMap: Record<string, number> = {};
 
   useEffect(() => {
     // Load game data from JSON files
@@ -129,6 +133,32 @@ export default function Home() {
     };
   });
 
+  // --- Player Frequency Calculation ---
+  // Build a map: position -> frequency for selected player or all players
+  if (selectedPlayer === 'ALL') {
+    // Sum for all players
+    for (const stat of playerStats) {
+      for (const posStat of stat.positionStats) {
+        if (!frequencyMap[posStat.position]) frequencyMap[posStat.position] = 0;
+        frequencyMap[posStat.position] += posStat.inningsPlayed;
+      }
+    }
+  } else {
+    // Only for selected player
+    const stat = playerStats.find(s => s.player.name === selectedPlayer);
+    if (stat) {
+      for (const posStat of stat.positionStats) {
+        frequencyMap[posStat.position] = posStat.inningsPlayed;
+      }
+    }
+  }
+
+  // --- Dropdown options ---
+  const playerOptions = [
+    { value: 'ALL', label: 'All Players' },
+    ...playerStats.map(s => ({ value: s.player.name, label: s.player.name }))
+  ];
+
   if (isLoading) {
     return (
       <main className="min-h-screen bg-gray-100 p-2 sm:p-4 md:p-8">
@@ -157,9 +187,26 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-100 p-2 sm:p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-6 sm:mb-8">Pizza Gourmet Grizzlies</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-6 sm:mb-8">Pizza Gourmet Grizzlies - Player Stats</h1>
         <div className="bg-white p-2 sm:p-4 md:p-6 rounded-lg shadow mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-gray-900 mb-3 sm:mb-4">Player Field Positions</h2>
+          <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-gray-900 mb-3 sm:mb-4">Player Position Frequency</h2>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
+            <label htmlFor="player-select" className="font-semibold text-gray-700">Select Player:</label>
+            <select
+              id="player-select"
+              className="border rounded px-3 py-2 w-full sm:w-auto text-black"
+              value={selectedPlayer}
+              onChange={e => setSelectedPlayer(e.target.value)}
+            >
+              {playerOptions.map(opt => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
+          <DiamondFrequencyPlot frequencies={frequencyMap} />
+        </div>
+        <div className="bg-white p-2 sm:p-4 md:p-6 rounded-lg shadow mb-6 sm:mb-8">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-gray-900 mb-3 sm:mb-4">Player Statistics</h2>
           <PlayerStatsTable stats={playerStats} />
         </div>
         {battingOrderStats.length > 0 && (
