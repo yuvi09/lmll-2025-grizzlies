@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Pizza Gourmet Grizzlies - Player Stats",
+  title: "Pizza Gourmet Grizzlies",
   description: "Track and analyze player positions, batting orders, and runs for your little league baseball team",
 };
 
