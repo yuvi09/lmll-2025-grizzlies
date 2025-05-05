@@ -1,0 +1,113 @@
+{
+  "game": "Game 5",
+  "field_positions": [
+    {
+      "inning": "1st Inning",
+      "positions": {
+        "P": "Drew P.",
+        "C": "Rafa",
+        "1B": "Levi",
+        "2B": "Zach",
+        "SS": "Charlie",
+        "3B": "Luca C",
+        "LF": "Andrew",
+        "LC": "Sebie",
+        "RC": "Luca A",
+        "RF": "Peter"
+      },
+      "bench": {
+        "B1": "Lucas",
+        "B2": "Drew N."
+      }
+    },
+    {
+      "inning": "2nd Inning",
+      "positions": {
+        "P": "Drew P",
+        "C": "Zach",
+        "1B": "Sebie",
+        "2B": "Drew N",
+        "SS": "Andrew",
+        "3B": "Luca C",
+        "LF": "Rafa",
+        "LC": "Levi",
+        "RC": "Lucas",
+        "RF": "Charlie"
+      },
+      "bench": {
+        "B1": "Luca A",
+        "B2": "Peter"
+      }
+    },
+    {
+      "inning": "3rd Inning",
+      "positions": {
+        "P": "Andrew",
+        "C": "Rafa",
+        "1B": "Drew P",
+        "2B": "Lucas",
+        "SS": "Zach",
+        "3B": "Peter",
+        "LF": "Drew N",
+        "LC": "Levi",
+        "RC": "Luca A",
+        "RF": "Sebie"
+      },
+      "bench": {
+        "B1": "Luca C",
+        "B2": "Charlie"
+      }
+    },
+    {
+      "inning": "4th Inning",
+      "positions": {
+        "P": "Levi",
+        "C": "Luca A",
+        "1B": "Drew P",
+        "2B": "Drew N",
+        "SS": "Andrew",
+        "3B": "Luca C",
+        "LF": "Zach",
+        "LC": "Peter",
+        "RC": "Lucas",
+        "RF": "Charlie"
+      },
+      "bench": {
+        "B1": "Rafa",
+        "B2": "Sebie"
+      }
+    },
+    {
+      "inning": "5th Inning",
+      "positions": {
+        "P": "Levi",
+        "C": "Rafa",
+        "1B": "Drew P",
+        "2B": "Sebie",
+        "SS": "Luca A",
+        "3B": "Peter",
+        "LF": "Luca C",
+        "LC": "Charlie",
+        "RC": "Lucas",
+        "RF": "Drew N"
+      },
+      "bench": {
+        "B1": "Andrew",
+        "B2": "Zach"
+      }
+    }
+  ],
+  "batting_order": [
+    "Zach",
+    "Drew P",
+    "Rafa",
+    "Luca C",
+    "Drew N",
+    "Andrew",
+    "Sebie",
+    "Peter",
+    "Charlie",
+    "Levi",
+    "Luca A"
+  ]
+}

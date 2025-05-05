@@ -23,7 +23,7 @@ export default function Home() {
   const [playerStats, setPlayerStats] = useState<PlayerStats[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedPlayer, setSelectedPlayer] = useState<string>('ALL');
+  const [selectedPlayer, setSelectedPlayer] = useState<string>('');
 
   const frequencyMap: Record<string, number> = {};
 
@@ -134,30 +134,25 @@ export default function Home() {
   });
 
   // --- Player Frequency Calculation ---
-  // Build a map: position -> frequency for selected player or all players
-  if (selectedPlayer === 'ALL') {
-    // Sum for all players
-    for (const stat of playerStats) {
-      for (const posStat of stat.positionStats) {
-        if (!frequencyMap[posStat.position]) frequencyMap[posStat.position] = 0;
-        frequencyMap[posStat.position] += posStat.inningsPlayed;
-      }
-    }
-  } else {
-    // Only for selected player
-    const stat = playerStats.find(s => s.player.name === selectedPlayer);
-    if (stat) {
-      for (const posStat of stat.positionStats) {
-        frequencyMap[posStat.position] = posStat.inningsPlayed;
-      }
+  // Build a map: position -> frequency for selected player
+  const stat = playerStats.find(s => s.player.name === selectedPlayer);
+  if (stat) {
+    for (const posStat of stat.positionStats) {
+      frequencyMap[posStat.position] = posStat.inningsPlayed;
     }
   }
 
   // --- Dropdown options ---
-  const playerOptions = [
-    { value: 'ALL', label: 'All Players' },
-    ...playerStats.map(s => ({ value: s.player.name, label: s.player.name }))
-  ];
+  const playerOptions = playerStats
+    .map(s => ({ value: s.player.name, label: s.player.name }))
+    .sort((a, b) => a.label.localeCompare(b.label));
+
+  // Set initial selected player if not set
+  useEffect(() => {
+    if (playerStats.length > 0 && !selectedPlayer) {
+      setSelectedPlayer(playerOptions[0].value);
+    }
+  }, [playerStats, playerOptions, selectedPlayer]);
 
   if (isLoading) {
     return (

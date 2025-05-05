@@ -52,4 +52,5 @@ export interface PlayerStats {
     order: number;
     games: number;
   }[];
+  totalInningsPlayed: number;
 } 

@@ -1,6 +1,7 @@
 import { Game, PlayerStats } from '@/types/game';
 
 const POSITIONS = ['P', 'C', '1B', '2B', 'SS', '3B', 'LF', 'LC', 'RC', 'RF', 'B1', 'B2'];
+const FIELD_POSITIONS = ['P', 'C', '1B', '2B', 'SS', '3B', 'LF', 'LC', 'RC', 'RF'];
 
 function normalizeName(name: string): string {
   return name.replace(/\./g, '').replace(/\s+/g, ' ').trim();
@@ -9,6 +10,7 @@ function normalizeName(name: string): string {
 export function calculatePlayerStats(games: Game[]): PlayerStats[] {
   const playerStatsMap = new Map<string, PlayerStats>();
   const displayNameMap = new Map<string, string>(); // normalized -> display name
+  const totalGameInnings = games.reduce((sum, game) => sum + game.field_positions.length, 0);
 
   // Initialize player stats
   games.forEach(game => {
@@ -46,7 +48,8 @@ export function calculatePlayerStats(games: Game[]): PlayerStats[] {
         playerStatsMap.set(norm, {
           player: { id: norm, name: displayNameMap.get(norm) || norm },
           positionStats: [],
-          battingOrderStats: []
+          battingOrderStats: [],
+          totalInningsPlayed: 0
         });
       }
     });
@@ -55,11 +58,16 @@ export function calculatePlayerStats(games: Game[]): PlayerStats[] {
   // Calculate position stats, including explicit B1/B2 from bench object
   games.forEach(game => {
     game.field_positions.forEach(inning => {
+      // Track which players have been counted for this inning
+      const countedInInning = new Set<string>();
+      
       // Field positions
       Object.entries(inning.positions).forEach(([position, playerName]) => {
         if (!POSITIONS.includes(position)) return; // skip unknown positions
         const norm = normalizeName(playerName);
         const stats = playerStatsMap.get(norm)!;
+        
+        // Update position-specific stats
         const positionStat = stats.positionStats.find(p => p.position === position);
         if (positionStat) {
           positionStat.inningsPlayed += 1;
@@ -70,7 +78,14 @@ export function calculatePlayerStats(games: Game[]): PlayerStats[] {
             percentage: 0
           });
         }
+        
+        // Only increment total innings for field positions (not bench)
+        if (!countedInInning.has(norm) && FIELD_POSITIONS.includes(position)) {
+          stats.totalInningsPlayed += 1;
+          countedInInning.add(norm);
+        }
       });
+
       // Bench positions from bench object
       if (inning.bench) {
         if (inning.bench.B1) {
@@ -122,9 +137,8 @@ export function calculatePlayerStats(games: Game[]): PlayerStats[] {
 
   // Calculate percentages
   playerStatsMap.forEach(stats => {
-    const totalInnings = games.reduce((sum, game) => sum + game.field_positions.length, 0);
     stats.positionStats.forEach(pos => {
-      pos.percentage = (pos.inningsPlayed / totalInnings) * 100;
+      pos.percentage = (pos.inningsPlayed / totalGameInnings) * 100;
     });
   });
 

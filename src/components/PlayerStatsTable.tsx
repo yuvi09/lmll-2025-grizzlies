@@ -35,20 +35,18 @@ const PlayerStatsTable: React.FC<{ stats: PlayerStats[] }> = ({ stats }) => {
     const posMap: Record<string, number> = {};
     POSITIONS.forEach(pos => (posMap[pos] = 0));
     let bench = 0;
-    let total = 0;
     playerStat.positionStats?.forEach(posStat => {
       if (posStat.position === 'B1' || posStat.position === 'B2') {
         bench += posStat.inningsPlayed || 0;
       } else if (POSITIONS.includes(posStat.position)) {
         posMap[posStat.position] = posStat.inningsPlayed || 0;
       }
-      total += posStat.inningsPlayed || 0;
     });
     return {
       name: playerStat.player.name,
       posMap,
       bench,
-      total
+      total: playerStat.totalInningsPlayed
     };
   })
   // Filter out players with zero total innings played
