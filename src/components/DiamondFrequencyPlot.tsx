@@ -53,7 +53,7 @@ const DiamondFrequencyPlot: React.FC<DiamondFrequencyPlotProps> = ({ frequencies
         </text>
 
         {Object.entries(POSITION_COORDS).map(([pos, { x, y }]) => {
-          let freq = frequencies[pos] || 0;
+          const freq = frequencies[pos] || 0;
           
           // Skip rendering individual bench positions and positions with zero frequency
           if (pos === 'B1' || pos === 'B2' || freq === 0) return null;
